@@ -1,9 +1,3 @@
-<!--
-  - Full screen clock (24-hour with seconds)
-  - Copyright (c) 2022 Project Nayuki. All rights reserved.
-  - 
-  - https://www.nayuki.io/page/full-screen-clock-javascript
-  -->
 <!DOCTYPE html>
 <html style="height:100%; margin:0; padding:0">
 	<head>
@@ -33,9 +27,10 @@
 			function updateClock() {
 				const d = new Date();
 				let s = "";
-				s += (10 > d.getHours  () ? "0" : "") + d.getHours  () + ":";
+				s += ((d.getHours() + 11) % 12 + 1) + ":";
 				s += (10 > d.getMinutes() ? "0" : "") + d.getMinutes() + ":";
-				s += (10 > d.getSeconds() ? "0" : "") + d.getSeconds();
+				s += (10 > d.getSeconds() ? "0" : "") + d.getSeconds() + "\u00A0";
+				s += d.getHours() >= 12 ? "pm" : "am";
 				textElem.textContent = s;
 				setTimeout(updateClock, 1000 - d.getTime() % 1000 + 20);
 			}
